@@ -1,0 +1,29 @@
+{
+  "name": "vouchroster",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/wrangler.mjs dev --local --ip 127.0.0.1 --port 8787",
+    "db:migrate": "node scripts/wrangler.mjs d1 migrations apply DB --local",
+    "db:seed": "node scripts/seed-local.mjs",
+    "setup": "npm run db:migrate && npm run db:seed",
+    "typecheck": "tsc --noEmit",
+    "build": "esbuild src/index.ts --bundle --format=esm --platform=browser --target=es2022 --outfile=dist/worker.js",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check": "npm run typecheck && npm test",
+    "staging:prepare": "node scripts/staging.mjs prepare",
+    "staging:deploy": "node scripts/staging.mjs deploy",
+    "staging:bootstrap": "node scripts/staging.mjs bootstrap"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261010.1",
+    "esbuild": "0.28.2",
+    "miniflare": "4.20260730.0",
+    "typescript": "5.9.3",
+    "wrangler": "4.149.0"
+  }
+}
