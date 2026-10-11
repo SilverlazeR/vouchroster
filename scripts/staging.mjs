@@ -6,12 +6,14 @@ if(!['prepare','deploy','bootstrap'].includes(action))throw new Error('Use prepa
 const origin=process.env.VOUCHROSTER_STAGING_ORIGIN;
 const databaseId=process.env.VOUCHROSTER_STAGING_DATABASE_ID;
 const accountId=process.env.CLOUDFLARE_ACCOUNT_ID;
-if(!origin||!/^https:\/\/vouchroster-staging\.[a-z0-9-]+\.workers\.dev$/.test(origin))throw new Error('Set VOUCHROSTER_STAGING_ORIGIN to https://vouchroster-staging.<your-subdomain>.workers.dev (no trailing slash).');
+const match=origin?.match(/^https:\/\/(vouchroster(?:-staging)?)\.[a-z0-9-]+\.workers\.dev$/);
+if(!match)throw new Error('Set VOUCHROSTER_STAGING_ORIGIN to your vouchroster or vouchroster-staging workers.dev address (HTTPS, no trailing slash).');
+const workerName=match[1];
 if(!databaseId||!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(databaseId)||/^0+-0+-0+-0+-0+$/.test(databaseId))throw new Error('Set VOUCHROSTER_STAGING_DATABASE_ID to the real staging D1 ID.');
-if(!accountId||!/^[a-f0-9]{32}$/i.test(accountId))throw new Error('Set CLOUDFLARE_ACCOUNT_ID to your account ID.');
+if(accountId&&!/^[a-f0-9]{32}$/i.test(accountId))throw new Error('Set CLOUDFLARE_ACCOUNT_ID to your account ID.');
 const configPath=resolve('.wrangler/staging.wrangler.json');
 await mkdir('.wrangler',{recursive:true});
-const config={name:'vouchroster-staging',account_id:accountId,main:'../src/index.ts',compatibility_date:'2026-08-01',workers_dev:true,assets:{directory:'../public',binding:'ASSETS',run_worker_first:true,html_handling:'none'},d1_databases:[{binding:'DB',database_name:'vouchroster-staging',database_id:databaseId,migrations_dir:'../migrations'}],vars:{ENVIRONMENT:'production',APP_ORIGIN:origin,LOCAL_MAILBOX:'false',PUBLIC_SUBMISSIONS:'false',STAGING:'true',...(process.env.VOUCHROSTER_EMAIL_FROM?{EMAIL_FROM:process.env.VOUCHROSTER_EMAIL_FROM}:{})}};
+const config={name:workerName,...(accountId?{account_id:accountId}:{}),main:'../src/index.ts',compatibility_date:'2026-08-01',workers_dev:true,assets:{directory:'../public',binding:'ASSETS',run_worker_first:true,html_handling:'none'},d1_databases:[{binding:'DB',database_name:'vouchroster-staging',database_id:databaseId,migrations_dir:'../migrations'}],vars:{ENVIRONMENT:'production',APP_ORIGIN:origin,LOCAL_MAILBOX:'false',PUBLIC_SUBMISSIONS:'false',STAGING:'true',...(process.env.VOUCHROSTER_EMAIL_FROM?{EMAIL_FROM:process.env.VOUCHROSTER_EMAIL_FROM}:{})}};
 await writeFile(configPath,JSON.stringify(config,null,2)+'\n');
 function wrangler(args){const r=spawnSync(process.execPath,['scripts/wrangler.mjs',...args,'--config',configPath],{stdio:'inherit'});if(r.status!==0)process.exit(r.status??1);}
 if(action==='prepare')console.log('Staging config prepared. No remote changes performed.');

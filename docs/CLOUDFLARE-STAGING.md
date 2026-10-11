@@ -4,7 +4,7 @@ Deployment is now authorized for a staging preview. Keep the existing local conf
 
 ## Connect Cloudflare to GitHub
 
-In Cloudflare Workers & Pages, create/import a Worker from `SilverlazeR/vouchroster`, granting the Cloudflare GitHub app access to this repository. Choose the implementation feature branch for staging. Account-owner consent for installing that GitHub app must happen in the dashboard; Git push access alone does not establish this connection.
+In Cloudflare Workers & Pages, create/import a Worker from `SilverlazeR/vouchroster`, granting the Cloudflare GitHub app access to this repository. Choose the implementation feature branch for staging. For the existing Worker `vouchroster`, use its `https://vouchroster.shawn-silvia.workers.dev` origin. The deployment script derives the Worker name from this origin and will use that existing project. Account-owner consent for installing that GitHub app must happen in the dashboard; Git push access alone does not establish this connection.
 
 Use build command `npm run check` and deployment command `npm run staging:deploy`. The generated config is in ignored `.wrangler/staging.wrangler.json`; it uses the staging D1 binding and production runtime settings. No local test data is copied. GitHub Actions validates commits and pull requests; automatic deployment is handled by the Cloudflare repository connection.
 
@@ -12,9 +12,9 @@ Use build command `npm run check` and deployment command `npm run staging:deploy
 
 Create a D1 database named `vouchroster-staging` and use the account's existing workers.dev subdomain. Set these non-secret build variables:
 
-- `CLOUDFLARE_ACCOUNT_ID`: selected Cloudflare account ID.
+- `CLOUDFLARE_ACCOUNT_ID`: selected Cloudflare account ID; optional when native Workers Builds supplies it or the scoped token identifies one account.
 - `VOUCHROSTER_STAGING_DATABASE_ID`: staging D1 database UUID.
-- `VOUCHROSTER_STAGING_ORIGIN`: `https://vouchroster-staging.<your-subdomain>.workers.dev` (no trailing slash).
+- `VOUCHROSTER_STAGING_ORIGIN`: your existing `https://vouchroster.<your-subdomain>.workers.dev` or `https://vouchroster-staging.<your-subdomain>.workers.dev` address (no trailing slash).
 - `VOUCHROSTER_EMAIL_FROM`: verified Resend sender, when available.
 - `VOUCHROSTER_ADMIN_EMAIL`: initial administrator email, needed only when bootstrapping.
 
@@ -25,7 +25,7 @@ For login, add **Worker runtime secret** `RESEND_API_KEY` and runtime variable `
 ## Execute and verify
 
 1. `npm run staging:prepare` validates supplied IDs/origin and writes the config without changing remote resources.
-2. `npm run staging:deploy` applies only versioned staging migrations and deploys `vouchroster-staging`; it does not run the local seed. Public nominations remain paused and the staging page is labeled/noindex.
+2. `npm run staging:deploy` applies only versioned staging migrations and deploys the Worker selected by the origin; it does not run the local seed. Public nominations remain paused and the staging page is labeled/noindex.
 3. Once the real administrator email and delivery are configured, run `npm run staging:bootstrap`. This records an invited administrator, who must verify their email to activate the account. It does not promote an existing member or replace an existing administrator.
 4. Verify homepage/branding, `/api/health`, anonymous `/api/members` rejection, `/api/dev/mail` rejection and the staging noindex header at the real HTTPS origin. Test real login and invitation delivery, then private member behavior. Do not claim these checks passed merely because deployment succeeds.
 
