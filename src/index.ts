@@ -190,8 +190,8 @@ async function profile(env:Env,req:Request,url:URL,slug:string){
  html=html.replace('</head>',`<link rel="canonical" href="${escape(canonical)}"/><meta property="og:title" content="${escape(l.business)} | VouchRoster"/><script type="application/ld+json">${structured}</script></head>`).replace(/(["'])assets\//g,'$1/assets/');
  return new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8'}});
 }
-function headers(response:Response,path:string){
- const r=new Response(response.body,response);r.headers.set('X-Content-Type-Options','nosniff');r.headers.set('Referrer-Policy','no-referrer');r.headers.set('X-Frame-Options','DENY');r.headers.set('Permissions-Policy','camera=(), microphone=(), geolocation=()');
+function headers(response:Response,path:string,staging=false){
+ const r=new Response(response.body,response);if(staging){r.headers.set('X-Robots-Tag','noindex, nofollow');r.headers.set('Cache-Control','no-store');}r.headers.set('X-Content-Type-Options','nosniff');r.headers.set('Referrer-Policy','no-referrer');r.headers.set('X-Frame-Options','DENY');r.headers.set('Permissions-Policy','camera=(), microphone=(), geolocation=()');
  // Theme initialization is external; layout styles retain the established prototype presentation.
  r.headers.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'");
  if(path.startsWith('/api/')||['/member.html','/admin.html','/login.html','/verify.html'].includes(path)){r.headers.set('Cache-Control','no-store');r.headers.set('X-Robots-Tag','noindex, nofollow');}
@@ -203,14 +203,16 @@ export default {
    validateEnvironment(env,url);
    if(url.pathname.startsWith('/api/'))return headers(await api(req,env,url),url.pathname);
    if(req.method!=='GET'&&req.method!=='HEAD')throw new Failure(405,'Method not allowed.');
-   const match=url.pathname.match(/^\/professionals\/([a-z0-9-]+)$/);if(match)return headers(await profile(env,req,url,match[1]),url.pathname);
+   const match=url.pathname.match(/^\/professionals\/([a-z0-9-]+)$/);if(match)return headers(await profile(env,req,url,match[1]),url.pathname,env.STAGING==='true');
    if(url.pathname==='/sitemap.xml'){
     const rows=await env.DB.prepare('SELECT slug FROM listings WHERE status=\'published\' ORDER BY slug').all<{slug:string}>();
     const paths=['/','/directory.html','/community.html','/standards.html',...rows.results.map(r=>'/professionals/'+r.slug)];
     return headers(new Response(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map(p=>`<url><loc>${escape(env.APP_ORIGIN+p)}</loc></url>`).join('')}</urlset>`,{headers:{'Content-Type':'application/xml'}}),url.pathname);
    }
+   if(url.pathname==='/robots.txt'&&env.STAGING==='true')return new Response('User-agent: *\nDisallow: /\n',{headers:{'Content-Type':'text/plain','X-Robots-Tag':'noindex'}});
    if(url.pathname==='/robots.txt')return new Response(`User-agent: *\nDisallow: /api/\nDisallow: /admin.html\nDisallow: /member.html\nDisallow: /verify.html\nDisallow: /login.html\nDisallow: /*-preview.html\nSitemap: ${env.APP_ORIGIN}/sitemap.xml\n`,{headers:{'Content-Type':'text/plain'}});
-   const assetRequest=url.pathname==='/'?new Request(new URL('/index.html',url),req):req;
+   let assetRequest=url.pathname==='/'?new Request(new URL('/index.html',url),req):req;
+   if(env.STAGING==='true'){assetRequest=new Request(assetRequest);assetRequest.headers.delete('If-None-Match');assetRequest.headers.delete('If-Modified-Since');}
    const assetResponse=await env.ASSETS.fetch(assetRequest);
    if(env.STAGING==='true'&&assetResponse.headers.get('content-type')?.includes('text/html')){
     const html=(await assetResponse.text()).replace('<body>','<body><aside role="note" style="padding:12px 20px;background:#F7F4ED;color:#0F2D3D;text-align:center;border-bottom:1px solid #C79A64">Staging preview · Public nominations are paused. No local test accounts are available here.</aside>');

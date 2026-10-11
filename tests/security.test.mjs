@@ -28,3 +28,12 @@ test('rendered listings escape untrusted recommendation text and cannot expose p
  // Test template must include the insertion markers used by the actual retained branded page.
  assert.ok(html.includes('&lt;img src=x'));assert.ok(!html.includes('<img src=x'));assert.ok(!html.includes('nominator@example.test'));
 });
+
+test('staging pauses submissions, labels the preview and prevents search indexing',async()=>{
+ const preview=new Miniflare({modules:true,scriptPath:'dist/worker.js',compatibilityDate:'2026-08-01',d1Databases:{DB:'preview'},bindings:{ENVIRONMENT:'production',APP_ORIGIN:origin,LOCAL_MAILBOX:'false',STAGING:'true',PUBLIC_SUBMISSIONS:'false'},serviceBindings:{ASSETS:async()=>new Response('<html><body>Preview</body></html>',{headers:{'Content-Type':'text/html'}})}});
+ try{
+  const page=await preview.dispatchFetch(origin+'/');assert.equal(page.status,200);assert.match(await page.text(),/Staging preview/);assert.match(page.headers.get('x-robots-tag'),/noindex/);
+  const robots=await preview.dispatchFetch(origin+'/robots.txt');assert.match(await robots.text(),/Disallow: \//);
+  const nomination=await preview.dispatchFetch(origin+'/api/nominations',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:'{}'});assert.equal(nomination.status,503);assert.match(await nomination.text(),/not accepting nominations/);
+ }finally{await preview.dispose();}
+});
