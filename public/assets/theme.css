@@ -1,0 +1,93 @@
+/* VouchRoster brand palette & accessible light/dark presentation. */
+:root,html[data-theme="light"]{color-scheme:light;--navy:#0F2D3D;--forest:#2E5D4A;--gold:#C79A64;--neutral:#F7F4ED;--slate:#6B7280;--pine:#0F2D3D;--pine-dark:#09202E;--clay:#C79A64;--cream:#F7F4ED;--white:#FFFFFF;--soft:#F7F4ED;--ink:#142D3B;--muted:#596575;--line:#E3E5E4;--surface:#FFFFFF;--input:#FFFFFF;--shadow:0 18px 54px rgba(15,45,61,.09)}
+.nav{background:var(--surface);border-bottom-color:var(--line)}
+.menu a{color:var(--ink)}.brand-name{color:var(--pine)}.brand-tag{color:var(--muted)}
+.nav-row{gap:18px}.menu{margin-left:auto;gap:21px}
+.brand img.mark-dark{display:none}.brand img.mark-light{display:block}
+.footer .brand img.mark-light{display:none}.footer .brand img.mark-dark{display:block}
+.nav-actions{display:flex;align-items:center;gap:8px;order:3}
+.menu{order:2}.brand{order:1}
+.theme-toggle{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 11px;display:flex;align-items:center;justify-content:center;gap:7px;min-height:41px;min-width:43px;font-size:12px;font-weight:700;line-height:1.1;transition:background .2s,border .2s}
+.theme-toggle:hover{background:var(--cream);border-color:var(--forest)}
+.theme-toggle svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}
+.theme-toggle .sun-icon{display:none}.theme-toggle .moon-icon{display:block}
+:where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn-primary{background:var(--navy);color:#fff}.btn-clay{background:#AD7B40;color:#fff}
+.btn-secondary{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn-white{background:#fff;color:#0F2D3D}
+.pill{color:var(--forest)}
+.hero{background-color:var(--navy)}
+.hero:before{background:linear-gradient(90deg,rgba(9,32,46,.95),rgba(15,45,61,.84) 39%,rgba(15,45,61,.12) 82%),linear-gradient(0deg,rgba(9,32,46,.3),transparent 43%)}
+.hero h1 span{color:#EAC189}
+.big-link,.category,.step,.county-card,.demo-profile,.form-card,.tile{background:var(--surface);border-color:var(--line)}
+.big-link h3,.value strong,.category h3,.category .icon,.text-link,.field label,.county-card .icon{color:var(--pine)}
+.big-link .big-icon{background:#EAF0F2;color:var(--navy)}
+.big-link.community .big-icon{background:#E8F0EB;color:var(--forest)}
+.community-section,.page-intro,.demo-review{background:var(--cream)}
+.community-section p{color:var(--muted)}
+.quote-panel{background:var(--navy)}
+.footer{background:#092431;color:#F4F7F8}
+.footer .brand-name{color:#F7F4ED}.footer .brand-tag{color:#B6C8CE}
+.footer a,.footer p{color:#D2DDE0}
+.field input,.field select,.field textarea{background:var(--input);color:var(--ink);border-color:var(--line)}
+.blank,.member-preview{background:var(--cream);border-color:var(--line)}
+.notice{background:#EFF6F1;color:#204D3E;border-color:#C6DFD0}
+.prototype{background:#FFF7EC;color:#674920;border-color:#E2C99D}
+.chip{color:var(--forest);background:#E8F1EB}
+.result{background:#F1F8F3;border-color:#BED8C6;color:var(--ink)}
+.county-card.live{background:#EFF6F1;border-color:#A6C8B6}
+.checklist li:before{background:#DCEEE2;color:var(--forest)}
+.mini-kicker{color:var(--forest);border-color:var(--line)}
+.theme-toggle:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media(max-width:1000px){.menu{gap:12px}.theme-text{display:none}}
+@media(max-width:740px){.nav-row{gap:10px}.menu{background:var(--surface);order:2}.nav-actions{margin-left:auto}.theme-toggle{min-width:43px}.theme-text{display:none}.hero:before{background:linear-gradient(90deg,rgba(9,32,46,.95),rgba(15,45,61,.60))}}
+
+/* True dark theme: use a darker navy canvas rather than inverted/light palette. */
+html[data-theme="dark"]{color-scheme:dark;--navy:#0F2D3D;--forest:#67B08F;--gold:#E0B47B;--neutral:#0C1C28;--slate:#A9B3BB;--pine:#E8F0F2;--pine-dark:#081721;--clay:#E0B47B;--cream:#132B39;--white:#0D202D;--soft:#132B39;--ink:#EDF3F4;--muted:#B2BEC5;--line:#344A56;--surface:#152D3B;--input:#102532;--shadow:0 15px 44px rgba(0,0,0,.22)}
+html[data-theme="dark"] body{background:#0C1C28;color:var(--ink)}
+html[data-theme="dark"] .nav{background:#102533;border-color:#344A56}
+html[data-theme="dark"] .brand img.mark-dark{display:block}
+html[data-theme="dark"] .brand img.mark-light{display:none}
+html[data-theme="dark"] .brand-tag{color:#AFBCC3}
+html[data-theme="dark"] .top-strip{background:#071924}
+html[data-theme="dark"] .menu a{color:#E8EFF0}
+html[data-theme="dark"] .menu a:hover,html[data-theme="dark"] .menu a.active{color:#E0B47B}
+html[data-theme="dark"] .nav-toggle{background:#152D3B;color:#EDF3F4;border-color:#344A56}
+html[data-theme="dark"] .theme-toggle{background:#162E3B;color:#F0D8B4;border-color:#3B5562}
+html[data-theme="dark"] .theme-toggle:hover{background:#1B3E4B}
+html[data-theme="dark"] .theme-toggle .sun-icon{display:block}
+html[data-theme="dark"] .theme-toggle .moon-icon{display:none}
+html[data-theme="dark"] .big-link,html[data-theme="dark"] .category,html[data-theme="dark"] .step,html[data-theme="dark"] .county-card,html[data-theme="dark"] .demo-profile,html[data-theme="dark"] .form-card,html[data-theme="dark"] .tile{background:#152D3B;color:#EDF3F4;border-color:#344A56;box-shadow:none}
+html[data-theme="dark"] .big-link .big-icon{background:#244556;color:#E0B47B}
+html[data-theme="dark"] .big-link.community .big-icon{background:#24483B;color:#B6DFCA}
+html[data-theme="dark"] .big-link h3,html[data-theme="dark"] .value strong,html[data-theme="dark"] .category h3,html[data-theme="dark"] .category .icon,html[data-theme="dark"] .text-link,html[data-theme="dark"] .field label,html[data-theme="dark"] .county-card .icon{color:#F3F5F3}
+html[data-theme="dark"] .big-link .go,html[data-theme="dark"] .category .go{color:#E0B47B}
+html[data-theme="dark"] .category:hover{background:#1D3B4B;border-color:#72958A}
+html[data-theme="dark"] .value,.values{border-color:#344A56}
+html[data-theme="dark"] .values .icon{color:#DDB584}
+html[data-theme="dark"] .section-head p,html[data-theme="dark"] .page-intro p,html[data-theme="dark"] .community-section p,html[data-theme="dark"] .blank p,html[data-theme="dark"] .faq p,html[data-theme="dark"] .county-card p{color:var(--muted)}
+html[data-theme="dark"] .community-section,html[data-theme="dark"] .page-intro,html[data-theme="dark"] .demo-review{background:#132B39}
+html[data-theme="dark"] .quote-panel{background:#153C46}
+html[data-theme="dark"] .quote-panel p{color:#D8E5E7}
+html[data-theme="dark"] .quote-panel h2 em{color:#E0B47B}
+html[data-theme="dark"] .county-card.live{background:#193D3D;border-color:#496B60}
+html[data-theme="dark"] .footer{background:#071924}
+html[data-theme="dark"] .footer-base{border-color:#2B4551}
+html[data-theme="dark"] .blank{background:#102635;border-color:#60707B}
+html[data-theme="dark"] .notice{background:#193B34;border-color:#3D6A5A;color:#E2F2E7}
+html[data-theme="dark"] .prototype{background:#3A3023;border-color:#836444;color:#F8DFC3}
+html[data-theme="dark"] .result{background:#1A3B32;border-color:#426E5E;color:#E5F0ED}
+html[data-theme="dark"] .chip{background:#214638;color:#CDECDD}
+html[data-theme="dark"] .field input,html[data-theme="dark"] .field select,html[data-theme="dark"] .field textarea{background:#102532;color:#EDF3F4;border-color:#49606B}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#A8B7BF}
+html[data-theme="dark"] .member-preview{background:#102635}
+html[data-theme="dark"] .mini-kicker{color:#B1D1CA;border-color:#344A56}
+html[data-theme="dark"] .checklist li:before{background:#275244;color:#D5F1DD}
+html[data-theme="dark"] .btn-primary{background:#2E5D4A;color:#FFFFFF}
+html[data-theme="dark"] .btn-primary:hover{background:#397257}
+html[data-theme="dark"] .btn-secondary{background:#1D3A4B;color:#F2F5F6;border-color:#557080}
+html[data-theme="dark"] .pill:not(.light){color:#D9F1E4;border-color:#557A6E}
+html[data-theme="dark"] .demo-banner span{background:#3B3126;color:#F7DEB1}
+html[data-theme="dark"] .footer .brand img.mark-dark{display:block}
+html[data-theme="dark"] .footer .brand img.mark-light{display:none}
+@media(max-width:740px){html[data-theme="dark"] .menu{background:#102533;border-color:#344A56;box-shadow:0 15px 30px rgba(0,0,0,.45)}}

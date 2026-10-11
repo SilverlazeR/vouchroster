@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 520" role="img" aria-label="Illustrated people connected in a community">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EDE8DA"/><stop offset="1" stop-color="#D8E0D4"/></linearGradient></defs>
+<rect width="660" height="520" rx="26" fill="url(#bg)"/>
+<circle cx="331" cy="258" r="186" fill="none" stroke="#9BAE9E" stroke-width="2" stroke-dasharray="4 11"/>
+<path d="M199 188 310 131l125 61m-236-4-39 147 147 63 128-68V192m-128 206 4-267" stroke="#9AAE9E" stroke-width="4" stroke-linecap="round" opacity=".6" fill="none"/>
+<g><circle cx="199" cy="188" r="48" fill="#C79A64"/><circle cx="199" cy="170" r="14" fill="#FAF3E9"/><path d="M170 205q29-36 58 0" fill="#FAF3E9"/></g>
+<g><circle cx="311" cy="130" r="46" fill="#2E5D4A"/><circle cx="311" cy="113" r="14" fill="#F8EFE1"/><path d="M282 148q29-36 58 0" fill="#F8EFE1"/></g>
+<g><circle cx="435" cy="191" r="51" fill="#C79A64"/><circle cx="435" cy="175" r="15" fill="#FCF5E9"/><path d="M405 208q30-40 60 0" fill="#FCF5E9"/></g>
+<g><circle cx="161" cy="336" r="48" fill="#2E5D4A"/><circle cx="161" cy="319" r="14" fill="#FAF3E9"/><path d="M132 354q29-35 58 0" fill="#FAF3E9"/></g>
+<g><circle cx="309" cy="399" r="52" fill="#6B7280"/><circle cx="309" cy="379" r="16" fill="#FAF3E9"/><path d="M276 416q32-42 65 0" fill="#FAF3E9"/></g>
+<g><circle cx="435" cy="334" r="48" fill="#0F2D3D"/><circle cx="435" cy="318" r="14" fill="#FAF3E9"/><path d="M407 352q28-36 57 0" fill="#FAF3E9"/></g>
+<rect x="218" y="238" rx="16" width="225" height="61" fill="#FDF9F1" stroke="#E2E2D6"/><path d="m257 271 17 16 36-39" fill="none" stroke="#C79A64" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><text x="324" y="277" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="#0F2D3D">Real connections</text>
+</svg>

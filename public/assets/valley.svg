@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 820" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustrated evergreen mountains and a river in Southern Oregon">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#D8C7A5"/><stop offset=".38" stop-color="#E7D8B9"/><stop offset="1" stop-color="#859C91"/></linearGradient>
+<linearGradient id="back" x2="0" y2="1"><stop stop-color="#84948B"/><stop offset="1" stop-color="#536D63"/></linearGradient>
+<linearGradient id="middle" x2="0" y2="1"><stop stop-color="#577467"/><stop offset="1" stop-color="#2E5D4A"/></linearGradient>
+<linearGradient id="water" x2="0" y2="1"><stop stop-color="#B6B5A0"/><stop offset="1" stop-color="#6E9A92"/></linearGradient>
+<radialGradient id="sun"><stop stop-color="#C79A64" stop-opacity=".85"/><stop offset="1" stop-color="#C79A64" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="820" fill="url(#sky)"/><ellipse cx="1084" cy="162" rx="360" ry="260" fill="url(#sun)"/>
+<path d="M0 450 140 367 240 389 450 256 567 317 749 216 886 307 1071 242 1190 333 1380 219 1600 353v467H0Z" fill="#9CA79A" opacity=".65"/>
+<path d="M0 494 185 421 377 468 617 313 799 406 1057 305 1232 407 1420 340 1600 435v385H0Z" fill="url(#back)"/>
+<path d="M0 581 147 502 348 540 576 442 779 503 1010 422 1192 530 1412 457 1600 529v291H0Z" fill="url(#middle)"/>
+<path d="M0 666Q245 569 442 612t393 15q193-53 398-16t367-26v235H0Z" fill="#0F2D3D"/>
+<path d="M1111 599 Q1095 630 1000 646 T893 689 Q850 730 949 747 T1226 791 L1430 820 H640 Q737 783 775 756 T771 698 Q751 676 832 655 T1052 621Z" fill="url(#water)" opacity=".9"/>
+<path d="M1063 641q-116 36-177 62M988 677q-130 45-160 50M1018 743q130 19 196 49" fill="none" stroke="#F3E0BA" stroke-width="5" opacity=".48"/>
+<g fill="#0F2D3D" opacity=".83">
+<path d="m0 750 42-198 43 198zm71-40 38-164 38 164zm97 80 35-194 36 194zm112-42 46-192 46 192zm124 63 44-203 44 203zm150-43 45-179 45 179zm800-7 46-206 47 206zm105 40 56-262 59 262z"/>
+</g>
+<g fill="#2E5D4A" opacity=".9"><path d="m1255 682 29-137 30 137zm-170 45 31-146 32 146zm-247-35 30-127 31 127zm-320 26 26-130 27 130zm-388 21 28-133 28 133z"/></g>
+</svg>
